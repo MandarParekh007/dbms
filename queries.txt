@@ -1,0 +1,25 @@
+1.
+
+2. SELECT user_id, role from User,Company,Roles where User.company_id = Company.company_id AND User.role_id = Roles.role_id
+
+3. SELECT user_id from partnership_roles,User where User.user_id = partnership_roles.user_id
+
+4. SELECT 
+        c.Name AS Company_Name,
+        SUM(o.amount) AS Total_Amount
+    FROM 
+        Company c
+    JOIN 
+        Partners pt ON c.company_id = pt.partner_id
+    JOIN 
+        Partnership p ON pt.partnership_id = p.partnership_id
+    JOIN 
+        Solution s ON p.partnership_id = s.partnership_id
+    JOIN 
+        Lead l ON s.solution_id = l.solution_id
+    JOIN 
+        Account a ON l.lead_id = a.lead_id
+    JOIN 
+        Opportunity o ON a.account_id = o.account_id
+    GROUP BY 
+        c.Name;
